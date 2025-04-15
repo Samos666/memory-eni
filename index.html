@@ -18,15 +18,16 @@
 <body>
     <header>
         <h1>
-            ENI - Memory - Acceuil
+            ENI - Memory - Accueil
         </h1>
+        <!-- Menu -->
         <nav>
-            <ul>
-                <li><a href=""></a>Acceuil</li>
-                <li>S'inscrire</li>
-                <li>Se connecter</li>
-                <li>Profil</li>
-                <li>Jouer</li>
+            <ul id="menuListe">
+                <li id="menuAccueil"><a href=""></a>Accueil</li>
+                <li id="menuInscription">S'inscrire</li>
+                <li id="menuConnexion">Se connecter</li>
+                <li id="menuProfil">Profil</li>
+                <li id="menuJouer">Jouer</li>
             </ul>
         </nav>
     </header>
@@ -34,15 +35,16 @@
 
 
     <main>
-        <section class="accueil">
+        <!-- Accueil -->
+        <section class="accueil" id="accueil" style="display: block;">
             <h2>Bienvenue sur le site du Memory de l'ENI.</h2>
             <p>
                 Venez jouer avec nous et faites le meilleur score possible.
             </p>
-            <br>
+
             <div class="regles">
                 <h3>Règles du jeu :</h3>
-                <li>Retournez deux cartes.Si les images sont identiques, le jeu laisse les cartes visibles</li>
+                <li>Retournez deux cartes. Si les images sont identiques, le jeu laisse les cartes visibles</li>
 
                 <li>Si les images sont différentes, les cartes se retournent faces cachées là où elles etaient</li>
                 <li>La partie est teminée lorsque toutes les cartes on été assemblées par paires</li>
@@ -60,18 +62,27 @@
 
             </div>
         </section>
-        <section class="inscription">
+
+        <!-- Inscription -->
+        <section class="inscription" id="inscription" style="display: none;">
             <fieldset>
                 <legend>Inscrivez-vous</legend>
                 <form>
                     <label for="inscriptNom">Nom d'utilisateur</label>
                     <input type="text" id="inscriptNom" placeholder="3 caractères minimum">
+                    <hr>
                     <label for="inscriptEmail">Entrez votre email</label>
                     <input type="email" id="inscriptEmail" placeholder="votre email">
+                    <hr>
                     <label for="inscriptPassword">Mot de passe</label>
                     <input type="password" id="inscriptPassword" placeholder="votre mot de passe">
-                    <label for="inscriptVerifPassword">Confirmez le mot de passe</label>
-                    <input type="password" id="inscriptVerifPassword" placeholder="confirmez le mot de passe">
+                    <p>doit contenir au moins <span id="majuscules">1 majuscule</span>, <span id="minuscules">1 minuscule</span>, 
+                        <span id="chiffres">1 chiffre</span>, <span id="caracteres">6 caractères</span></p>
+                        <hr>
+                    <label for="inscriptConfirmPassword">Confirmez le mot de passe</label>
+                    <input type="password" id="inscriptConfirmPassword" placeholder="confirmez le mot de passe">
+                    <p id="pwdDifferents" style="visibility: hidden;">Les mots de passe sont différents</p>
+                    <hr>
                     <div class="boutons">
                         <input class="boutonOK" type="submit" value="Créer mon compte">
                         <input class="boutonNO" type="button" value="Annuler">
@@ -79,7 +90,9 @@
                 </form>
             </fieldset>
         </section>
-        <section class="connexion">
+
+        <!-- Connexion -->
+        <section class="connexion" id="connexion" style="display: none;">
             <fieldset>
                 <legend>Connectez-vous</legend>
                 <form action="">
@@ -96,17 +109,19 @@
             </fieldset>
         </section>
 
-
-        <section class="profil">
+        <!-- Profil -->
+        <section class="profil" id="profil" style="display: none;">
             <fieldset>
                 <legend>Profil</legend>
                 <form action="">
+                    <img class="photoProfil" src="/images/blank_profil_photo.png" alt="Photo de profil">
+                    <input type="file" name="Photo de profil">
                     <label for="profilNom">Nom d'utilisateur</label>
                     <input type="text" id="profilNom" placeholder="votre pseudo">
                     <label for="profilEmail"> Email</label>
                     <input type="email" id="profilEmail" placeholder="votre email">
-                    <div>
-                        <label name="memorySelect" id="memorySelect">Choix du Memory :</select>
+                    <div class="choixTheme">
+                        <label for="memorySelect">Choix du Memory :</select>
                             <select name="memory" id="memorySelect">
                                 <option value="">-- Choisissez le thème --</option>
                                 <option value="chiens">Chiens</option>
@@ -114,6 +129,7 @@
                                 <option value="legumes">Légumes</option>
                                 <option value="animauxDomestiques">Animaux domestiques</option>
                             </select>
+                            <img class="photoTheme" src="/images/chiens/memory_details_chiens.png" alt="Choix du theme">
                     </div>
 
                     <div>
@@ -124,13 +140,15 @@
                             <option value="4x4">4 x 4</option>
                         </select>
                     </div>
-                    
-                    <input class="boutons boutonOK" type="button" value="Enregistrer les options">
-
+                    <div class="boutons">
+                        <input class="boutonOK" type="button" value="Enregistrer les options">
+                    </div>
                 </form>
             </fieldset>
         </section>
-        <section class="jouer">
+
+        <!-- Jouer -->
+        <section class="jouer" id="jouer" style="display: none;">
             <h2>Derniers meilleurs scores :</h2>
             <table>
                 <thead>
@@ -169,6 +187,38 @@
             </table>
             <p>Tentez de gagner avec le moins d'essais possible.</p>
             <p>appuyez sur la barre d'espace pour relancer le jeu.</p>
+            <div class="tabJeu">
+                <div class="tabJeuLignes row">
+                    <div class="tabJeuCol col-3">
+                        <img src="/images/chiens/1.webp" alt="chiens1">
+                        <img src="/images/chiens/10.webp" alt="chiens10">
+                        <img src="/images/chiens/11.webp" alt="chiens11">
+                        <img src="/images/chiens/12.webp" alt="chiens12">
+                        <img src="/images/chiens/13.webp" alt="chiens13">
+                    </div>
+                    <div class="tabJeuCol col-3">
+                        <img src="/images/chiens/14.webp" alt="chiens1">
+                        <img src="/images/chiens/15.webp" alt="chiens10">
+                        <img src="/images/chiens/16.webp" alt="chiens11">
+                        <img src="/images/chiens/17.webp" alt="chiens12">
+                        <img src="/images/chiens/18.webp" alt="chiens13">
+                    </div>
+                    <div class="tabJeuCol col-3">
+                        <img src="/images/chiens/14.webp" alt="chiens1">
+                        <img src="/images/chiens/15.webp" alt="chiens10">
+                        <img src="/images/chiens/16.webp" alt="chiens11">
+                        <img src="/images/chiens/17.webp" alt="chiens12">
+                        <img src="/images/chiens/18.webp" alt="chiens13">
+                    </div>
+                    <div class="tabJeuCol col-3">
+                        <img src="/images/chiens/14.webp" alt="chiens1">
+                        <img src="/images/chiens/15.webp" alt="chiens10">
+                        <img src="/images/chiens/16.webp" alt="chiens11">
+                        <img src="/images/chiens/17.webp" alt="chiens12">
+                        <img src="/images/chiens/18.webp" alt="chiens13">
+                    </div>
+                </div>
+            </div>
             <p>Nombre de coups :</p>
         </section>
     </main>
