@@ -84,7 +84,7 @@
                     <p id="pwdDifferents" style="visibility: hidden;">Les mots de passe sont différents</p>
                     <hr>
                     <div class="boutons">
-                        <input class="boutonOK" type="submit" value="Créer mon compte">
+                        <input class="boutonOK" id="inscriptOk" type="submit" value="Créer mon compte">
                         <input class="boutonNO" type="button" value="Annuler">
                     </div>
                 </form>
@@ -99,7 +99,7 @@
                     <label for="connexEmail">Entrez votre email</label>
                     <input type="email" id="connexEmail" placeholder="votre email (ex: nom@email.com)">
                     <label for="connexPassword"> Mot de passe</label>
-                    <input type="text" id="connexPassword" placeholder="votre mot de passe">
+                    <input type="password" id="connexPassword" placeholder="votre mot de passe">
 
                     <div class="boutons">
                         <input class="boutonOK" type="submit" value="Se connecter">
@@ -123,25 +123,26 @@
                     <div class="choixTheme">
                         <label for="memorySelect">Choix du Memory :</select>
                             <select name="memory" id="memorySelect">
-                                <option value="">-- Choisissez le thème --</option>
-                                <option value="chiens">Chiens</option>
+                                <option value="" disabled>-- Choisissez le thème --</option>
+                                <option value="chiens" selected>Chiens</option>
                                 <option value="dinosaures">Dinosaures</option>
                                 <option value="legumes">Légumes</option>
                                 <option value="animauxDomestiques">Animaux domestiques</option>
                             </select>
-                            <img class="photoTheme" src="/images/chiens/memory_details_chiens.png" alt="Choix du theme">
+                            <img class="photoTheme" id="photoTheme" src="/images/chiens/details_chiens.png" alt="Thème des chiens">
                     </div>
 
                     <div>
-                        <label name="tailleMemory" id="tailleMemory">Choix de la taille :</label>
+                        <label name="tailleMemory">Choix de la taille :</label>
                         <select name="taille" id="tailleMemory">
-                            <option value="">-- Choisissez la taille --</option>
-                            <option value="4x3">4 x 3</option>
-                            <option value="4x4">4 x 4</option>
+                            <option value="" disabled>-- Choisissez la taille --</option>
+                            <option value="12" selected>4 x 3</option>
+                            <option value="16">4 x 4</option>
+                            <option value="20">4 x 5</option>
                         </select>
                     </div>
                     <div class="boutons">
-                        <input class="boutonOK" type="button" value="Enregistrer les options">
+                        <input class="boutonOK" id="validationProfil" type="button" value="Enregistrer les options">
                     </div>
                 </form>
             </fieldset>

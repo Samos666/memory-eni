@@ -49,59 +49,45 @@ function choixMenu() {
 
 function inscription() {
 
-  // Retour visuel des champs
-  document.getElementById("inscriptNom").addEventListener("input", testNom);
-  document.getElementById("inscriptNom").addEventListener("input", checkProfil);
-  document.getElementById("inscriptEmail").addEventListener("input", testEmail);
-  document.getElementById("inscriptEmail").addEventListener("input", checkProfil);
-  document.getElementById("inscriptPassword").addEventListener("input", testPassword)
-  document.getElementById("inscriptPassword").addEventListener("input", checkProfil)
-  document.getElementById("inscriptConfirmPassword").addEventListener("input", testConfirmPassword)
-  document.getElementById("inscriptConfirmPassword").addEventListener("input", checkProfil)
-
+  // Soumission du formulaire
   let estOkNom = testNom();
-  let estOkEmail = testEmail();
-  let estOkPassword = testPassword();
-  let estOkConfirmPassword = testConfirmPassword();
+  console.log(estOkNom);
+  
+  document.getElementById("inscriptOk").addEventListener("click", function() {
 
+  })
 
   // Check longueur Nom
   function testNom() {
-    let nom = document.getElementById("inscriptNom");
-    let nomInput = nom.value
-    if (nomInput.length <= 2) {
-      nom.style.borderColor = "red";
-      nom.style.borderWidth = "3px";
+  document.getElementById("inscriptNom").addEventListener("input", function () {
+    if (this.value.length <= 2) {
+      this.style.borderColor = "red";
+      this.style.borderWidth = "3px";
       return false;
     } else {
-      nom.style.borderColor = "yellowgreen";
-      nom.style.borderWidth = "3px";
+      this.style.borderColor = "yellowgreen";
+      this.style.borderWidth = "3px";
       return true;
     }
+  });
+}
 
-  };
-
-
-  // Check format Email
-  function testEmail() {
-    let email = document.getElementById("inscriptEmail")
-    let emailInput = email.value;
+  //   Check format Email
+  document.getElementById("inscriptEmail").addEventListener("input", function () {
+    let emailInput = this.value;
     let isOK = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]{2,}.[a-zA-Z]{2,}$/.test(emailInput);
     if (!isOK) {
-      email.style.borderColor = "red";
-      email.style.borderWidth = "3px";
-      return false;
+      this.style.borderColor = "red";
+      this.style.borderWidth = "3px";
     } else {
-      email.style.borderColor = "yellowgreen";
-      email.style.borderWidth = "3px";
-      return true;
+      this.style.borderColor = "yellowgreen";
+      this.style.borderWidth = "3px";
     }
-  }
-
+  });
 
   // Check Mot de passe
-  function testPassword() {
-    let passwordInput = document.getElementById("inscriptPassword").value;
+  document.getElementById("inscriptPassword").addEventListener("input", function () {
+    let passwordInput = this.value;
 
     let pwdLongueur = checkLongueur(passwordInput);
     let pwdMinuscules = checkMinuscules(passwordInput);
@@ -111,11 +97,9 @@ function inscription() {
     if (pwdLongueur >= 6 && pwdMinuscules && pwdMajuscules && pwdChiffres) {
       document.getElementById("inscriptPassword").style.borderColor = "yellowgreen";
       document.getElementById("inscriptPassword").style.borderWidth = "3px";
-      return true;
     } else {
       document.getElementById("inscriptPassword").style.borderColor = "red";
       document.getElementById("inscriptPassword").style.borderWidth = "3px";
-      return false;
     }
 
     function checkLongueur(passwordInput) {
@@ -156,76 +140,38 @@ function inscription() {
       }
       return test;
     }
-  }
+  });
 
-
-  // Confirmation du mot de passe
-  function testConfirmPassword() {
+  // Verification mot de passe
+  document.getElementById("inscriptConfirmPassword").addEventListener("input", function () {
     let passwordInput = document.getElementById("inscriptPassword").value;
-    let inscriptConfirmPassword = document.getElementById("inscriptConfirmPassword").value;
-    if (passwordInput != inscriptConfirmPassword || inscriptConfirmPassword == "") {
+    let inscriptConfirmPassword = this.value;
+    if (passwordInput != inscriptConfirmPassword) {
       document.getElementById("pwdDifferents").style.visibility = "visible";
       document.getElementById("pwdDifferents").innerText = "Les mots de passe sont différents";
       document.getElementById("pwdDifferents").style.color = "red";
       document.getElementById("inscriptConfirmPassword").style.borderColor = "red";
       document.getElementById("inscriptConfirmPassword").style.borderWidth = "3px";
-      return false;
     } else {
       document.getElementById("pwdDifferents").style.color = "yellowgreen";
       document.getElementById("pwdDifferents").innerText = "Les mots de passe correspondent";
       document.getElementById("inscriptConfirmPassword").style.borderColor = "yellowgreen";
       document.getElementById("inscriptConfirmPassword").style.borderWidth = "3px";
-      return true;
     }
-  }
-
-
-  // Changer couleur bouton "Valider"
-  function checkProfil() {
-    estOkNom = testNom();
-    estOkEmail = testEmail();
-    estOkPassword = testPassword();
-    estOkConfirmPassword = testConfirmPassword();
-
-    if (estOkNom && estOkEmail && estOkPassword && estOkConfirmPassword) {
-      document.getElementById("inscriptOk").disabled = false
-      document.getElementById("inscriptOk").style.backgroundColor = "yellowgreen"
-    } else {
-      document.getElementById("inscriptOk").disabled = true
-      document.getElementById("inscriptOk").style.backgroundColor = "grey"
-    }
-  }
-
-
-
-  // Soumission du formulaire & sauvegarde localstorage
-  document.getElementById("inscriptOk").addEventListener("click", localStorageSoumission)
-
-  function localStorageSoumission() {
-    localStorage.setItem("nom", document.getElementById("inscriptNom").value);
-    localStorage.setItem("email", document.getElementById("inscriptEmail").value);
-    localStorage.setItem("password", document.getElementById("inscriptPassword").value);
-  }
-
-
+  });
 }
 
+////////////////////////////////////////////
+// Sauvegarde profil dans le localstorage //
+////////////////////////////////////////////
+
+// document.getElementById("")
 
 ///////////////
 // Connexion //
 ///////////////
 
-function connexion() {
-  let connexEmail = document.getElementById("connexEmail").value;
-  let connexPassword = document.getElementById("connexPassword").value;
-
-  if (connexEmail == localStorage.getItem("email") && connexPassword == localStorage.getItem("password")) {
-    console.log("connexion OK");
-  } else {
-    console.log("Connexion false");
-
-  }
-}
+function connexion() { }
 
 ////////////
 // Profil //
@@ -243,10 +189,8 @@ function profil() {
 
   // Choix du theme
 
-  document.getElementById("memorySelect").addEventListener("change", memorySelection)
-
-  function memorySelection() {
-    let memorySelect = document.getElementById("memorySelect").value;
+  document.getElementById("memorySelect").addEventListener("change", function () {
+    let memorySelect = this.value;
 
     switch (memorySelect) {
       case "chiens":
@@ -272,14 +216,14 @@ function profil() {
       default:
         break;
     }
-  };
+  });
 
 
   // Choix de la taille
   document.getElementById("tailleMemory").addEventListener("change", function () {
     let tailleMemory = parseInt(this.value);
     // let tableauDeJeu = new Array(parseInt(this.value));
-
+    
   });
 
 }
@@ -288,6 +232,7 @@ function profil() {
 // Jouer //
 ///////////
 
-function jouer() {
-  let
-}
+function jouer() { }
+
+
+
