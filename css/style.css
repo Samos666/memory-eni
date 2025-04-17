@@ -1,6 +1,6 @@
 body {
     background-color: black;
-    color: beige;
+    background: linear-gradient(to bottom right, rgb(8, 8, 99), rgb(75, 62, 64));    color: beige;
     text-decoration: none;
     display: flex;
     flex-direction: column;

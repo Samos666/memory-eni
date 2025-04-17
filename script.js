@@ -8,6 +8,58 @@ function init() {
   jouer();
 }
 
+/////////////////////////////////////////////
+// Création des différents tableaux de jeu //
+/////////////////////////////////////////////
+
+function generationTableauxComplets() {
+  let cheminTheme = document.getElementById("photoTheme").getAttribute("src")
+  cheminTheme = cheminTheme.slice(0, cheminTheme.lastIndexOf("/"));
+  let nombreImages;
+  let extensionFichier;
+  let tabThemeChoisi = [];
+
+  switch (cheminTheme) {
+    case "images/chiens":
+      nombreImages = 23;
+      extensionFichier = ".webp"
+      break;
+
+    case "images/dinosaures":
+      nombreImages = 10;
+      extensionFichier = ".jpg"
+      break;
+
+    case "images/legumes":
+      nombreImages = 6;
+      extensionFichier = ".svg"
+      break;
+
+    case "index/alphabet":
+      nombreImages = 26;
+      extensionFichier = ".png"
+      break;
+
+    default:
+      break;
+  }
+
+  for (let index = 0; index < nombreImages; index++) {
+    let i = index + 1;
+    tabThemeChoisi[index] = cheminTheme + "/" + i + extensionFichier;
+  }
+
+  return [tabThemeChoisi, nombreImages];
+}
+
+
+
+
+
+
+
+
+
 ///////////////////////
 // Selection du menu //
 ///////////////////////
@@ -205,10 +257,31 @@ function inscription() {
     localStorage.setItem("nom", document.getElementById("inscriptNom").value);
     localStorage.setItem("email", document.getElementById("inscriptEmail").value);
     localStorage.setItem("password", document.getElementById("inscriptPassword").value);
+
+    // fetch('data.json')
+    //   .then(response => response.json())
+    //   .then(data => JSON(data))
+
+    // function JSON(donneesJSON) {
+    //   donneesJSON = [
+    //     {
+    //       "nom": document.getElementById("inscriptNom").value,
+    //       "email": document.getElementById("inscriptEmail").value,
+    //       "password":document.getElementById("inscriptPassword").value
+    //     }
+    //   ]
+    //   localStorage.setItem("users", JSON.stringify(donneesJSON))
+    //   let donneesLStorage = localStorage.setItem("users")
+    //   console.log(JSON.parse(donneesLStorage));
+
   }
 
 
+
 }
+
+
+
 
 
 ///////////////
@@ -231,15 +304,11 @@ function connexion() {
 // Profil //
 ////////////
 
-// Enregistrement profil et creation du tableau de jeu rempli
+
+
 
 function profil() {
-  document.getElementById("validationProfil").addEventListener("click", function () {
-    let themeChoisi = document.getElementById("memorySelect").value;
-    let plateauChoisi = document.getElementById("tailleMemory").value;
-    console.log(themeChoisi);
-    console.log(plateauChoisi);
-  });
+
 
   // Choix du theme
 
@@ -269,6 +338,11 @@ function profil() {
         document.getElementById("photoTheme").setAttribute("alt", "Theme des animaux domestiques");
         break;
 
+      case "alphabet":
+        document.getElementById("photoTheme").setAttribute("src", "images/alphabet/detail_alphabet.png");
+        document.getElementById("photoTheme").setAttribute("alt", "Theme des lettres de l'alphabet");
+        break;
+
       default:
         break;
     }
@@ -282,6 +356,66 @@ function profil() {
 
   });
 
+
+  // Enregistrement profil et creation du tableau de jeu rempli
+
+  document.getElementById("validationProfil").addEventListener("click", function () {
+    let themeChoisi = document.getElementById("memorySelect").value;
+    let tailleChoisie = document.getElementById("tailleMemory").value;
+
+    // fixer la taille du tableau de jeu
+    let tableauDeJeu = new Array(tailleChoisie * 2)
+
+    // choisir nombre aleatoire pour selectionner un animal dans tableauxAnimaux
+    let retourTemp = generationTableauxComplets();
+
+    let tabThemeChoisi = retourTemp[0];
+    let nombreImages = retourTemp[1];
+
+
+    for (let index = 0; index < nombreImages; index++) {
+      let indexRandom = indexAleatoire(nombreImages);
+      let imageRandom = tabThemeChoisi[indexRandom];
+      let indexFinalTableauDeJeu;
+      let casesVides = []
+
+      for (let boucle = 0; boucle < tableauDeJeu.length; boucle++) {
+        if (tableauDeJeu[i] == null) {
+          casesVides.push(i);
+        }
+      }
+      if (casesVides.length > 0) {
+        let indexAleatoire = indicesVides[Math.floor(Math.random() * indicesVides.length)];
+      
+        console.log("Index vide choisi :", indexAleatoire);
+      
+        // Par exemple, on y met une valeur
+        tableauDeJeu[indexAleatoire] = imageRandom;
+      } else {
+        console.log("Aucune case vide !");
+      }
+      }
+    }
+    console.log(tableauDeJeu);
+
+
+
+
+    // enregistré le contenu de l'index random dans le tableau à une place random
+    // une deuxieme fois pour doubler l'image
+
+
+
+
+    // Generation nombre pour 
+    function indexAleatoire(max) {
+      return Math.floor(Math.random() * max)
+    }
+
+  });
+
+
+
 }
 
 ///////////
@@ -289,5 +423,5 @@ function profil() {
 ///////////
 
 function jouer() {
-  let
+
 }
