@@ -144,9 +144,17 @@ form .boutons {
     width: 90%;
 }
 
-.jouer .tabJeu img {
-    margin: 5px;
-    border-radius: 5px;
+.jouer .plateauJeu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    justify-items: center;
+}
+
+.jouer .plateauJeu img {
+    padding: 10px;
+    border-radius: 5px;   
+    background-color: rgba(2, 43, 43, 0.685);
 }
 
 

@@ -8,6 +8,8 @@ function init() {
   jouer();
 }
 
+let tableauJouer;
+
 /////////////////////////////////////////////
 // Création des différents tableaux de jeu //
 /////////////////////////////////////////////
@@ -352,76 +354,142 @@ function profil() {
   // Choix de la taille
   document.getElementById("tailleMemory").addEventListener("change", function () {
     let tailleMemory = parseInt(this.value);
-    // let tableauDeJeu = new Array(parseInt(this.value));
-
   });
 
 
   // Enregistrement profil et creation du tableau de jeu rempli
 
-  document.getElementById("validationProfil").addEventListener("click", function () {
+  document.getElementById("validationProfil").addEventListener("click", validationProfil);
+
+  function validationProfil() {
+    //check le theme
     let themeChoisi = document.getElementById("memorySelect").value;
-    let tailleChoisie = document.getElementById("tailleMemory").value;
 
-    // fixer la taille du tableau de jeu
-    let tableauDeJeu = new Array(tailleChoisie * 2)
+    //check le nb de paires
+    let tailleChoisie = parseInt(document.getElementById("tailleMemory").value);
 
-    // choisir nombre aleatoire pour selectionner un animal dans tableauxAnimaux
+    //récup les images du theme choisi & le nombre d'images
     let retourTemp = generationTableauxComplets();
-
     let tabThemeChoisi = retourTemp[0];
     let nombreImages = retourTemp[1];
 
-
-    for (let index = 0; index < nombreImages; index++) {
-      let indexRandom = indexAleatoire(nombreImages);
-      let imageRandom = tabThemeChoisi[indexRandom];
-      let indexFinalTableauDeJeu;
-      let casesVides = []
-
-      for (let boucle = 0; boucle < tableauDeJeu.length; boucle++) {
-        if (tableauDeJeu[i] == null) {
-          casesVides.push(i);
-        }
-      }
-      if (casesVides.length > 0) {
-        let indexAleatoire = indicesVides[Math.floor(Math.random() * indicesVides.length)];
-      
-        console.log("Index vide choisi :", indexAleatoire);
-      
-        // Par exemple, on y met une valeur
-        tableauDeJeu[indexAleatoire] = imageRandom;
-      } else {
-        console.log("Aucune case vide !");
-      }
-      }
-    }
-    console.log(tableauDeJeu);
-
-
-
-
-    // enregistré le contenu de l'index random dans le tableau à une place random
-    // une deuxieme fois pour doubler l'image
-
-
-
-
-    // Generation nombre pour 
-    function indexAleatoire(max) {
-      return Math.floor(Math.random() * max)
+    if (tailleChoisie > nombreImages) {
+      alert("La taille est trop grande pour le thème choisi. \n\nMerci de sélectionner une taille plus petite ou changer de thème");
+      return;
     }
 
-  });
+    //copie tableau d'images et le melange
+    let copieTheme = [...tabThemeChoisi];
+    melangerTableau(copieTheme);
+
+    //choisis X images uniques
+    let imagesChoisies = copieTheme.slice(0, tailleChoisie);
+
+    let tableauDeJeuFinal = [];
+
+    // mets 2 copies de chaque image
+    for (let i = 0; i < imagesChoisies.length; i++) {
+      tableauDeJeuFinal.push(imagesChoisies[i]);
+      tableauDeJeuFinal.push(imagesChoisies[i]);
+    }
+
+
+    console.log("Avant mélange :", [...tableauDeJeuFinal]);
+
+    melangerTableau(tableauDeJeuFinal);
+    console.log("Après mélange :", tableauDeJeuFinal);
+
+    // lancement de la fonction d'affichage de la partie
+
+    tableauJouer = [...tableauDeJeuFinal]
+    for (let i = 0; i < tableauJouer.length; i++) {
+      tableauCache[i] = "images/question.svg";      
+    }
+    
+    jouer(tableauDeJeuFinal)
+    cacherCartes(tableauCache)
+
+  }
 
 
 
+  function indexAleatoire(max) {
+    return Math.floor(Math.random() * max)
+  }
+
+  function melangerTableau(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      // Choisir un index aléatoire entre 0 et i
+      const j = Math.floor(Math.random() * (i + 1));
+      // Échanger array[i] avec array[j]
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+  }
 }
+
 
 ///////////
 // Jouer //
 ///////////
 
-function jouer() {
+document.getElementById("menuJouer").addEventListener("click", function () {
+  jouer(tableauDeJeuFinal);
+});
+document.getElementById("menuJouer").addEventListener("click", function () {
+  cacherCartes(tableauCache);
+});
 
+function cacherCartes(tableauDeJeuFinal) {
+  const plateau = document.getElementById("plateauJeu");
+
+  // Ajoute chaque carte dans la grille
+  src = "/images/question.svg"
+  tableauCache.forEach((src) => {
+    const image = document.createElement("img");
+    image.src = src;
+    image.style.width = "200px";
+    image.style.margin = "5px";
+    plateau.appendChild(image);
+  });
 }
+
+
+function jouer(tableauDeJeuFinal) {
+  const plateau = document.getElementById("plateauJeu");
+  plateau.innerHTML = ""; // Vider le plateau
+
+  // Ajoute chaque carte dans la grille
+  tableauDeJeuFinal.forEach((src) => {
+    const image = document.createElement("img");
+    image.src = src;
+    image.style.width = "200px";
+    image.style.margin = "5px";
+    plateau.appendChild(image);
+  });
+}
+
+
+
+
+  //   for (let i = 0; i < compteur; i++) {
+  //     // colonne 1
+  //     image = document.createElement("img");
+  //     image.src = tableauDeJeuFinal[i];
+  //     document.getElementById("tabJeuColonne1").appendChild(image)
+  //     // colonne 2
+  //     image = document.createElement("img");
+  //     image.src = tableauDeJeuFinal[i+4];
+  //     document.getElementById("tabJeuColonne2").appendChild(image)
+  //     // colonne 3
+  //     image = document.createElement("img");
+  //     image.src = tableauDeJeuFinal[i+5];
+  //     document.getElementById("tabJeuColonne3").appendChild(image)
+  //     // colonne 4
+  //     image = document.createElement("img");
+  //     image.src = tableauDeJeuFinal[i+6];
+  //     document.getElementById("tabJeuColonne4").appendChild(image)
+
+  // array.forEach(element => {
+
